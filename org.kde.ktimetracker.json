@@ -1,7 +1,7 @@
 {
   "app-id": "org.kde.ktimetracker",
   "runtime": "org.kde.Platform",
-  "runtime-version": "5.15-23.08",
+  "runtime-version": "6.10",
   "sdk": "org.kde.Sdk",
   "command": "ktimetracker",
   "rename-icon": "ktimetracker",
@@ -12,15 +12,23 @@
     "--socket=fallback-x11",
     "--talk-name=org.kde.StatusNotifierWatcher"
   ],
+  "cleanup": [
+      "/share/doc",
+      "/share/man"
+  ],
   "modules": [
     {
       "name": "ktimetracker",
       "buildsystem": "cmake-ninja",
+      "post-install": [
+          "find /app/share/icons/hicolor -type f -not -path \"*scalable*\" -not -path \"*actions*\" -name \"*.svg\" -delete",
+          "install -Dm644 icons/breeze/48-apps-ktimetracker.svg /app/share/icons/hicolor/scalable/apps/${FLATPAK_ID}.svg"
+      ],
       "sources": [
         {
           "type": "archive",
-          "url": "https://download.kde.org/stable/ktimetracker/5.0.1/src/ktimetracker-5.0.1.tar.xz",
-          "sha256": "02e8620164357e594e135e20d8efd3987cc9c31a817c25e5555914e0971be64a"
+          "url": "https://download.kde.org/unstable/ktimetracker/ktimetracker-6.0.0.tar.xz",
+          "sha256": "50597e689f08efdaa79439a0aa9886ce47aaddb5a6018a57ffeea6cb7f666e69"
         },
         {
           "type": "patch",
